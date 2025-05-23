@@ -131,6 +131,8 @@ export const getMovieImages = async (args) => {
   return await response.json();
 };
 
+
+
 export const getMovieReviews = async (args) => {
   console.log(args);
   const [, idPart] = args.queryKey;
@@ -147,25 +149,21 @@ export const getMovieReviews = async (args) => {
 };
 
 
-
-//Adding first parameterised endpoint
-export const getMovieCredits = ({ queryKey }) => {
-  const [, idPart] = queryKey;
+export const getMovieCredits = async (args) => {
+  console.log(args);
+  const [, idPart] = args.queryKey;
   const { id } = idPart;
-  return fetch(
-    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
-  ).then( (response) => {
-    if (!response.ok) {
-      return response.json().then((error) => {
-        throw new Error(error.status_message || "Something went wrong");
-      });
-    }
-    return response.json();
-  })
-  .catch((error) => {
-    throw error
- });
+  
+  const response = await fetch(`http://localhost:8080/api/movies/${id}/credits`);
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.status_message || "Something went wrong");
+  }
+  
+  return await response.json();
 };
+
 
 //Adding second parameterised endpoint
 export const getMovieRecommendations = ({ queryKey }) => {
