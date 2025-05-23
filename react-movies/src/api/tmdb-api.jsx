@@ -14,6 +14,22 @@ export const getMovies = () => {
   });
 };
 
+export const getGenres = () => {
+  return fetch(
+    `http://localhost:8080/api/movies/genre`
+
+  ).then( (response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    throw error
+ });
+};
 
 export const getUpcomingMovies = () => {
   return fetch(
@@ -48,26 +64,6 @@ export const getMovie = (args) => {
   .catch((error) => {
     throw error
  });
-};
-
-
-
-export const getGenres = () => {
-  return fetch(
-    "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-    import.meta.env.VITE_TMDB_KEY +
-    "&language=en-US"
-  ).then((response) => {
-    if (!response.ok) {
-      return response.json().then((error) => {
-        throw new Error(error.status_message || "Something went wrong");
-      });
-    }
-    return response.json();
-  })
-    .catch((error) => {
-      throw error
-    });
 };
 
 
