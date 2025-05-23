@@ -4,6 +4,7 @@ import usersRouter from './api/users';
 import './db';
 import authenticate from './authenticate';
 import cors from 'cors';
+import moviesRouter from './api/movies';   
 
 
 
@@ -29,6 +30,8 @@ const port = process.env.PORT;
 app.use(express.json());
 
 app.use('/api/users', usersRouter);
+
+app.use('/api/movies', moviesRouter); 
 
 app.use(errHandler);
 
