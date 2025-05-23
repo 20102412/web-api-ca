@@ -101,3 +101,16 @@ export const getMovie = async (id) => {
     
     return await response.json();
   };
+
+    export const getMovieReviews = async (id) => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.TMDB_KEY}`
+    );
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.status_message || "Something went wrong");
+    }
+    
+    return await response.json();
+  };
