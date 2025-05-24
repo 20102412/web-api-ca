@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -7,10 +7,11 @@ import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -21,6 +22,7 @@ const SiteHeader = ({ history }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
 
   const menuOptions = [
@@ -31,6 +33,13 @@ const SiteHeader = ({ history }) => {
     { label: "Popular", path: "/movies/popular" },
     { label: "Top Rated", path: "/movies/top_rated" },
     { label: "Now Playing", path: "/movies/now_playing" },
+    // { label: "login", path: "/login"},
+    // { label: "signup", path: "/signup"}
+  ];
+
+  const userButtons = [
+    { label: "login", path: "/login"},
+    { label: "signup", path: "/signup"}
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -89,6 +98,7 @@ const SiteHeader = ({ history }) => {
                 </Menu>
               </>
             ) : (
+              /*{ Normal Navigation Map }*/
               <>
                 {menuOptions.map((opt) => (
                   <Button
@@ -100,6 +110,25 @@ const SiteHeader = ({ history }) => {
                     {opt.label}
                   </Button>
                 ))}
+                {context.isAuthenticated ? (
+          <>
+           
+          </>
+        ) : (
+          /*{ Login and Signup Navigation Map }*/
+          <>
+            {userButtons.map((opt) => (
+                  <Button
+                    key={opt.label}
+                    color="inherit"
+                    onClick={() => handleMenuSelect(opt.path)}
+                    sx={{color: "#EBE8DB"}}
+                  >
+                    {opt.label}
+                  </Button>
+                ))}
+          </>
+        )}
               </>
             )}
         </Toolbar>
