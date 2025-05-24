@@ -18,6 +18,8 @@ import AddMovieReviewPage from './pages/addMovieReviewPage'
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
 import StartPage from "./pages/startPage";
+import AuthContextProvider from "./contexts/authContext";
+import ProtectedRoutes from "./protectedRoutes";
 
 
 
@@ -36,6 +38,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <AuthContextProvider>
         <SiteHeader />
         <MoviesContextProvider>
           <Routes>
@@ -52,8 +55,10 @@ const App = () => {
             <Route path="/reviews/form" element={<AddMovieReviewPage />} />
             <Route path="/login" element={< LoginPage />} />
             <Route path="/signup" element={< SignupPage />} />
+            <Route element={<ProtectedRoutes />}></Route>
           </Routes>
         </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
