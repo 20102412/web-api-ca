@@ -17,7 +17,6 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import LoginPage from "./pages/loginPage";
 import SignupPage from "./pages/signupPage";
-import StartPage from "./pages/startPage";
 import AuthContextProvider from "./contexts/authContext";
 import ProtectedRoutes from "./protectedRoutes";
 
@@ -55,7 +54,10 @@ const App = () => {
             <Route path="/reviews/form" element={<AddMovieReviewPage />} />
             <Route path="/login" element={< LoginPage />} />
             <Route path="/signup" element={< SignupPage />} />
-            <Route element={<ProtectedRoutes />}></Route>
+            <Route element={<ProtectedRoutes />}>
+            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+            <Route path="/movies/watchlist" element={<WatchListMoviesPage />} />
+            </Route>
           </Routes>
         </MoviesContextProvider>
         </AuthContextProvider>
