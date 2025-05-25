@@ -55,7 +55,7 @@ const FavoriteMoviesPage = () => {
     />
   ) : (
     <p>
-      You must log in to see your profile! {" "}
+      You must log in to see favorites! {" "}
       <button onClick={() => navigate('/login')}>Login</button>
     </p>
   );

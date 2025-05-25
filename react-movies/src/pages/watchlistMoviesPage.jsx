@@ -50,7 +50,7 @@ const WatchListMoviesPage = () => {
     />
   ) : (
     <p>
-      You must log in to see your profile! {" "}
+      You must log in to see watchlist! {" "}
       <button onClick={() => navigate('/login')}>Login</button>
     </p>
   );
